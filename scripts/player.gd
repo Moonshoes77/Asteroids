@@ -11,8 +11,8 @@ var Bullet = preload("res://scenes/bullet.tscn")
 
 
 func thrust(strength: float = 0.5):
-	if !$SFX.is_playing():
-		$SFX.play()
+	if !$thrusterSFX.is_playing():
+		$thrusterSFX.play()
 	velocity.x += cos(heading) * accel
 	velocity.y += sin(heading) * accel
 	velocity = velocity.limit_length(MAX_SPEED)
@@ -40,9 +40,10 @@ func shoot():
 	bullet.dir = rotation - PI/2
 	bullet.parent_velocityX = abs(velocity.x)
 	bullet.parent_velocityY = abs(velocity.y)
-	bullet.pos = $Gun.global_position
-	bullet.rot = $Gun.global_rotation
+	bullet.pos = $gun.global_position
+	bullet.rot = $gun.global_rotation
 	get_parent().add_child(bullet)
+	$gun/gunSFX.play()
 
 
 func decelerate():
@@ -65,10 +66,10 @@ func update():
 		get_heading()
 	if Input.is_action_pressed("accelerate"):
 		thrust()
-		$flame.visible = true
+		$ship/flame.visible = true
 	if Input.is_action_just_released("accelerate"):
-			$flame.visible = false
-			$SFX.stop()
+			$ship/flame.visible = false
+			$thrusterSFX.stop()
 	if !Input.is_action_pressed("accelerate"):
 		decelerate()
 		accel = move_toward(accel, 3.0, 0.25)
@@ -77,7 +78,7 @@ func update():
 func _ready():
 	position.x = screen_size.x / 2.0
 	position.y = screen_size.y / 2.0
-	$flame.visible = false
+	$ship/flame.visible = false
 
 
 func print_player_info():
@@ -85,7 +86,7 @@ func print_player_info():
 	print("accel: ", accel)
 	print("velocity: ", velocity)
 	print("rotation: ", rotation)
-	print("Gun rotation: ", $Gun.rotation)
+	print("Gun rotation: ", $gun.rotation)
 
 func _process(_delta):
 	if Input.is_action_just_pressed("shoot"):
