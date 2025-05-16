@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://hiwkwn0odskf"]
+[gd_scene load_steps=6 format=3 uid="uid://hiwkwn0odskf"]
 
 [ext_resource type="Script" uid="uid://da2xkdl2ga36i" path="res://scripts/player.gd" id="1_wqxex"]
 [ext_resource type="Texture2D" uid="uid://bjiypr6idd2kc" path="res://assets/Sprites/ship.png" id="2_xgpqh"]
 [ext_resource type="Script" uid="uid://dp4i113a7xfdn" path="res://scripts/gun.gd" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://1b4q5r2jsc5" path="res://assets/Sprites/flame.png" id="3_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://densybyodauac" path="res://assets/Sound/thruster.wav" id="5_qlg0r"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 10
@@ -30,3 +31,9 @@ texture_filter = 1
 position = Vector2(0, 25)
 scale = Vector2(0.920002, 1.16)
 texture = ExtResource("3_qhqgy")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_qlg0r")
+max_distance = 4096.0
+panning_strength = 0.0
+area_mask = 0

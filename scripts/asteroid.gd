@@ -1,0 +1,3 @@
+extends PhysicsBody2D
+
+class_name Asteroid

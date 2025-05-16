@@ -11,6 +11,8 @@ var Bullet = preload("res://scenes/bullet.tscn")
 
 
 func thrust(strength: float = 0.5):
+	if !$SFX.is_playing():
+		$SFX.play()
 	velocity.x += cos(heading) * accel
 	velocity.y += sin(heading) * accel
 	velocity = velocity.limit_length(MAX_SPEED)
@@ -66,6 +68,7 @@ func update():
 		$flame.visible = true
 	if Input.is_action_just_released("accelerate"):
 			$flame.visible = false
+			$SFX.stop()
 	if !Input.is_action_pressed("accelerate"):
 		decelerate()
 		accel = move_toward(accel, 3.0, 0.25)
