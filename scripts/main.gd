@@ -1,6 +1,19 @@
 extends Node
 
 const Player = preload("res://scenes/player.tscn")
+signal input_stored
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey && !event.is_pressed():
+		store_input(event)
+
+func store_input(event):
+	var key_input : String = OS.get_keycode_string(event.keycode)
+	input_stored.emit(key_input)
+
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
