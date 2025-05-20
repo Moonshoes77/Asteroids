@@ -97,4 +97,4 @@ func _physics_process(_delta: float) -> void:
 	update()
 	screen_wrap()
 	move_and_slide()
-	print_player_info()
+	#print_player_info()
