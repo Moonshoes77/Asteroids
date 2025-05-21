@@ -17,5 +17,6 @@ func _on_main_input_stored(_input) -> void:
 	check_input()
 
 func check_input():
-	if "".join(input).to_lower() == "rosebud":
-		print("$$$")
+	match "".join(input).to_lower():
+		"rosebud":
+			print("$$$")

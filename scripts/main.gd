@@ -19,6 +19,7 @@ func store_input(event):
 func _ready():
 	var player = Player.instantiate()
 	add_child(player)
+	print("main scene loaded")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
