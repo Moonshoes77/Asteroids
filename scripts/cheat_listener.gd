@@ -5,9 +5,9 @@ extends Node
 #TODO: Add variable length cheats 
 
 var input = Array(["", "", "", "", "", "", ""], TYPE_STRING,"",null)
-var main = get_parent()
 
 func _ready() -> void:
+	var main = get_parent()
 	main.input_stored.connect(_on_main_input_stored)
 	print("cheat_listener loaded")
 
