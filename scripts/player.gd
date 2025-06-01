@@ -4,13 +4,16 @@ const MAX_ACCEL: int = 10
 const MAX_SPEED: int = 300
 const BASE_DECEL_RATE: float = 0.015
 const MAX_DECEL_RATE: float = 0.1
+var counter: int = 0;
 var screen_size := DisplayServer.window_get_size()
 var accel: float = 3.0
 var heading: float = get_rotation() - PI/2 
 var Bullet = preload("res://scenes/bullet.tscn")
+@onready var Debugger = get_node("../Debug_Info")
 
 
-func thrust(strength: float = 0.5):
+
+func thrust(strength: float = 0.5):	
 	if !$thrusterSFX.is_playing():
 		$thrusterSFX.play()
 	velocity.x += cos(heading) * accel
@@ -18,6 +21,8 @@ func thrust(strength: float = 0.5):
 	velocity = velocity.limit_length(MAX_SPEED)
 	if accel < MAX_ACCEL:
 		accel += strength	
+
+
 
 
 func get_heading():
@@ -43,7 +48,7 @@ func shoot():
 	bullet.pos = $gun.global_position
 	bullet.rot = $gun.global_rotation
 	get_parent().add_child(bullet)
-	$gun/gunSFX.play()
+	$gunSFX.play()
 
 
 func decelerate():
@@ -61,18 +66,27 @@ func update():
 	if Input.is_action_pressed("rotate_left"):
 		rotate(-0.04)
 		get_heading()
+		
 	if Input.is_action_pressed("rotate_right"):
 		rotate(0.04)
 		get_heading()
+		
 	if Input.is_action_pressed("accelerate"):
 		thrust()
 		$ship/flame.visible = true
+		
 	if Input.is_action_just_released("accelerate"):
 			$ship/flame.visible = false
 			$thrusterSFX.stop()
+			
 	if !Input.is_action_pressed("accelerate"):
 		decelerate()
 		accel = move_toward(accel, 3.0, 0.25)
+		
+	counter += 1
+	if counter >= 5:
+		$ship/flame.scale.x *= -1
+		counter = 0
 
 
 func _ready():
@@ -81,20 +95,24 @@ func _ready():
 	$ship/flame.visible = false
 
 
+
+
+
 func print_player_info():
-	print(rotation)
-	print("accel: ", accel)
-	print("velocity: ", velocity)
-	print("rotation: ", rotation)
-	print("Gun rotation: ", $gun.rotation)
+	#Debugger.text = "accel: " + str(accel) + "/n velocity: " + str(velocity)
+	#print("accel: ", accel)
+	#print("velocity: ", velocity)
+	#print("rotation: ", rotation)
+	#print("Gun rotation: ", $gun.rotation)
+	#print(Debugger.text)
+	pass
 
 func _process(_delta):
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
 
-func _physics_process(_delta: float) -> void:
-	
+func _physics_process(_delta: float) -> void:	
 	update()
 	screen_wrap()
 	move_and_slide()
-	#print_player_info()
+	print_player_info()

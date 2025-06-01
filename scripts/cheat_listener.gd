@@ -1,22 +1,25 @@
 extends Node
 
+# Stores inputs received from Main node and checks for cheat strings
+#TODO: Add cheat effects
+#TODO: Add variable length cheats 
+
 var input = Array(["", "", "", "", "", "", ""], TYPE_STRING,"",null)
-# Called when the node enters the scene tree for the first time.
+var main = get_parent()
+
 func _ready() -> void:
-	pass # Replace with function body.
+	main.input_stored.connect(_on_main_input_stored)
+	print("cheat_listener loaded")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
-
-func _on_main_input_stored(_input) -> void:
+func _on_main_input_stored(_input: String) -> void:
 	input.pop_front()
 	input.append(_input)
 	check_input()
+	
 
-func check_input():
+
+func check_input() -> void:
 	match "".join(input).to_lower():
 		"rosebud":
 			print("$$$")

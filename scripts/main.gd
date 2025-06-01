@@ -1,8 +1,9 @@
 extends Node
 
-const Player = preload("res://scenes/player.tscn")
 signal input_stored
-
+var Player_Manager = preload("res://scenes/player_manager.tscn")
+var Stage_Manager = preload("res://scenes/stage_manager.tscn")
+var Cheat_Listener = preload("res://scenes/cheat_listener.tscn")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey && !event.is_pressed():
@@ -12,14 +13,16 @@ func store_input(event):
 	var key_input : String = OS.get_keycode_string(event.keycode)
 	input_stored.emit(key_input)
 
-
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var player = Player.instantiate()
+	var player = Player_Manager.instantiate()
+	var stage_manager = Stage_Manager.instantiate()
+	var cheat_listener = Cheat_Listener.instantiate()
 	add_child(player)
-	print("main scene loaded")
+	add_child(stage_manager)
+	add_child(cheat_listener)
+	print_tree_pretty()
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
