@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 const MAX_ACCEL: int = 10
@@ -5,7 +6,6 @@ const MAX_SPEED: int = 300
 const BASE_DECEL_RATE: float = 0.015
 const MAX_DECEL_RATE: float = 0.1
 var counter: int = 0;
-var screen_size := DisplayServer.window_get_size()
 var accel: float = 3.0
 var heading: float = get_rotation() - PI/2 
 var Bullet = preload("res://scenes/bullet.tscn")
@@ -23,21 +23,19 @@ func thrust(strength: float = 0.5):
 		accel += strength	
 
 
-
-
 func get_heading():
 	heading = get_rotation() - PI/2
 
 
 func screen_wrap():
-	if position.x > screen_size.x:
-		position.x = 0
-	if position.x < 0:
-		position.x = screen_size.x
-	if position.y > screen_size.y:
-		position.y = 0
-	if position.y < 0:
-		position.y = screen_size.y
+	if position.x > Main.screen_size.x + 10:
+		position.x = -10
+	if position.x < -10:
+		position.x = Main.screen_size.x + 10
+	if position.y > Main.screen_size.y + 10:
+		position.y = -10
+	if position.y < -10:
+		position.y = Main.screen_size.y + 10
 
 
 func shoot():
@@ -90,12 +88,9 @@ func update():
 
 
 func _ready():
-	position.x = screen_size.x / 2.0
-	position.y = screen_size.y / 2.0
+	position.x = Main.screen_size.x / 2.0
+	position.y = Main.screen_size.y / 2.0
 	$ship/flame.visible = false
-
-
-
 
 
 func print_player_info():
@@ -110,9 +105,9 @@ func print_player_info():
 func _process(_delta):
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
+	update()
 
 func _physics_process(_delta: float) -> void:	
-	update()
 	screen_wrap()
 	move_and_slide()
 	print_player_info()

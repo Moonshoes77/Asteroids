@@ -1,3 +1,4 @@
+class_name Player_Manager
 extends Node
 
 var Player = preload("res://scenes/player.tscn")
@@ -12,8 +13,7 @@ func _ready() -> void:
 	
 func spawn():
 	var player = Player.instantiate();
-	player.position.x = player.screen_size.x / 2
-	player.position.y = player.screen_size.y / 2
+	player.position.x = Main.screen_size.x / 2
+	player.position.y = Main.screen_size.y / 2
 	get_parent().add_child(player)
-	current_lives -= 1
 	

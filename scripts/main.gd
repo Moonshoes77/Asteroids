@@ -1,9 +1,11 @@
+class_name Main
 extends Node
 
 signal input_stored
 var Player_Manager = preload("res://scenes/player_manager.tscn")
 var Stage_Manager = preload("res://scenes/stage_manager.tscn")
 var Cheat_Listener = preload("res://scenes/cheat_listener.tscn")
+static var screen_size = DisplayServer.window_get_size()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey && !event.is_pressed():
@@ -18,10 +20,10 @@ func _ready():
 	var player = Player_Manager.instantiate()
 	var stage_manager = Stage_Manager.instantiate()
 	var cheat_listener = Cheat_Listener.instantiate()
+	add_child(cheat_listener)
 	add_child(player)
 	add_child(stage_manager)
-	add_child(cheat_listener)
-	print_tree_pretty()
+	#print_tree_pretty()
 
 
 
