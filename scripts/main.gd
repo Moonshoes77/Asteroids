@@ -2,8 +2,8 @@ class_name Main
 extends Node
 
 signal input_stored
-var Player_Manager = preload("res://scenes/player_manager.tscn")
-var Stage_Manager = preload("res://scenes/stage_manager.tscn")
+var Player_Manager_Instance = preload("res://scenes/player_manager.tscn")
+var Stage_Manager_Instance = preload("res://scenes/stage_manager.tscn")
 var Cheat_Listener = preload("res://scenes/cheat_listener.tscn")
 static var screen_size = DisplayServer.window_get_size()
 
@@ -17,8 +17,8 @@ func store_input(event):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var player = Player_Manager.instantiate()
-	var stage_manager = Stage_Manager.instantiate()
+	var player = Player_Manager_Instance.instantiate()
+	var stage_manager = Stage_Manager_Instance.instantiate()
 	var cheat_listener = Cheat_Listener.instantiate()
 	add_child(cheat_listener)
 	add_child(player)

@@ -8,7 +8,7 @@ const MAX_DECEL_RATE: float = 0.1
 var counter: int = 0;
 var accel: float = 3.0
 var heading: float = get_rotation() - PI/2 
-var Bullet = preload("res://scenes/bullet.tscn")
+var Bullet_Instance = preload("res://scenes/bullet.tscn")
 @onready var Debugger = get_node("../Debug_Info")
 
 
@@ -39,7 +39,7 @@ func screen_wrap():
 
 
 func shoot():
-	var bullet = Bullet.instantiate()
+	var bullet = Bullet_Instance.instantiate()
 	bullet.dir = rotation - PI/2
 	bullet.parent_velocityX = abs(velocity.x)
 	bullet.parent_velocityY = abs(velocity.y)
