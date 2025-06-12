@@ -17,13 +17,14 @@ func store_input(event):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	var player = Player_Manager_Instance.instantiate()
 	var stage_manager = Stage_Manager_Instance.instantiate()
 	var cheat_listener = Cheat_Listener.instantiate()
 	add_child(cheat_listener)
 	add_child(player)
 	add_child(stage_manager)
-	#print_tree_pretty()
+	print_tree_pretty()
 
 
 
