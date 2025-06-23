@@ -3,7 +3,6 @@ extends Node
 
 var stage: int
 var score: int = 0
-var asteroid: PackedScene = preload("res://scenes/asteroid.tscn")
 enum Difficulty {EASY, NORMAL, HARD} 
 var difficulty: = Difficulty.NORMAL
 
@@ -43,7 +42,6 @@ func _on_bullet_hit(asteroid: Asteroid):
 func handle_asteroid_hit(roid: Asteroid):
 	var pos = roid.position
 	var size = roid.size
-	
 	match size:
 		0:
 			add_roids(3, size + 1, pos)

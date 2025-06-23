@@ -1,12 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://xda8j8q8883m"]
+[gd_scene load_steps=2 format=3 uid="uid://xda8j8q8883m"]
 
 [ext_resource type="Script" uid="uid://c6jcnjxgoj107" path="res://scripts/main.gd" id="1_y6b0g"]
-
-[sub_resource type="SystemFont" id="SystemFont_jyhfs"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
-line_spacing = 1.0
-font = SubResource("SystemFont_jyhfs")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_y6b0g")
@@ -20,11 +14,3 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 color = Color(0, 0, 0, 1)
-
-[node name="Debug_Info" type="Label" parent="."]
-texture_repeat = 1
-offset_right = 40.0
-offset_bottom = 23.0
-scale = Vector2(4.58605, 5.88)
-label_settings = SubResource("LabelSettings_tefeu")
-autowrap_mode = 2

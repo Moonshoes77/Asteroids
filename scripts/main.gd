@@ -24,7 +24,7 @@ func _ready() -> void:
 	add_child(cheat_listener)
 	add_child(player)
 	add_child(stage_manager)
-	#print_tree_pretty()
+	print_tree_pretty()
 
 
 

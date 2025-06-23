@@ -9,7 +9,6 @@ var counter: int = 0;
 var accel: float = 3.0
 var heading: float = get_rotation() - PI/2 
 var Bullet_Instance = preload("res://scenes/bullet.tscn")
-@onready var Debugger = get_node("../Debug_Info")
 
 signal player_death
 

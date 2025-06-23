@@ -33,16 +33,16 @@ static func spawn(pos: Vector2, instance_size: Size) -> Asteroid:
 	
 	match instance_size:
 		Size.LARGE:
-			new_asteroid.r = randi_range(45, 85)
+			new_asteroid.r = randi_range(65, 85)
 		Size.MEDIUM:
-			new_asteroid.r = randi_range(35, 65)
+			new_asteroid.r = randi_range(35, 55)
 		Size.SMALL:
-			new_asteroid.r = randi_range(20, 40)
+			new_asteroid.r = randi_range(15, 30)
 	
 	new_asteroid.angle = 0.0
 	while (new_asteroid.angle < TAU):
-		var x: float = cos(new_asteroid.angle) * new_asteroid.r + randf_range(0.0, new_asteroid.r * 0.4)
-		var y: float = sin(new_asteroid.angle) * new_asteroid.r + randf_range(0.0, new_asteroid.r * 0.4)
+		var x: float = cos(new_asteroid.angle) * new_asteroid.r + randf_range(0.0, new_asteroid.r * 0.3)
+		var y: float = sin(new_asteroid.angle) * new_asteroid.r + randf_range(0.0, new_asteroid.r * 0.3)
 		var point = Vector2(x, y)
 		new_asteroid.angle += new_asteroid.step_size
 		new_asteroid.new_points.append(point)
@@ -51,6 +51,7 @@ static func spawn(pos: Vector2, instance_size: Size) -> Asteroid:
 	new_asteroid.outline.set_points(new_asteroid.new_points)
 	new_asteroid.collider.set_polygon(new_asteroid.new_points)
 	return new_asteroid
+
 
 
 func screen_wrap() -> void:
