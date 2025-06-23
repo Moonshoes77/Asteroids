@@ -1,4 +1,5 @@
-#TODO: refactor the spawn function to not be a hacked together constructor
+#TODO: Figure out a better way to handle the "constructor" function 'spawn()'
+#TODO: Keep velocity from changing to opposite direction when asteroids split
 
 class_name Asteroid
 extends Node2D
