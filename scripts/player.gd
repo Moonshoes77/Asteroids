@@ -102,9 +102,9 @@ func print_player_info():
 	pass
 
 func die():
-	print("You dead")
-	player_death.emit()
-	queue_free()
+	#print("You dead")
+	#player_death.emit()
+	#queue_free()
 	pass
 	
 func _process(_delta):

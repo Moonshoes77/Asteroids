@@ -53,7 +53,6 @@ static func spawn(pos: Vector2, instance_size: Size) -> Asteroid:
 	return new_asteroid
 
 
-
 func screen_wrap() -> void:
 		if position.x > Main.screen_size.x + 20:
 			position.x = -20
@@ -72,8 +71,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		queue_free()
 	elif (body is Player):
 		body.die()
-		
-func _ready() -> void:	
+
+
+func _ready() -> void:
 	pass
 
 

@@ -7,18 +7,17 @@ var dir: float
 var speed = 450
 var parent_velocityX: int
 var parent_velocityY: int
-var lifespan : float = 180.0
-var screen_size := DisplayServer.window_get_size()
+var lifespan : float = 85.0
 
 func screen_wrap():
-	if position.x > screen_size.x:
+	if position.x > Main.screen_size.x:
 		position.x = 0
 	if position.x < 0:
-		position.x = screen_size.x
-	if position.y > screen_size.y:
+		position.x = Main.screen_size.x
+	if position.y > Main.screen_size.y:
 		position.y = 0
 	if position.y < 0:
-		position.y = screen_size.y
+		position.y = Main.screen_size.y
 		
 func check_life():
 	lifespan -= 1
