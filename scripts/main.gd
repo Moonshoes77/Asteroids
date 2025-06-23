@@ -11,12 +11,12 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey && !event.is_pressed():
 		store_input(event)
 
-func store_input(event):
+func store_input(event) -> void:
 	var key_input : String = OS.get_keycode_string(event.keycode)
 	input_stored.emit(key_input)
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	randomize()
 	var player = Player_Manager_Instance.instantiate()
 	var stage_manager = Stage_Manager_Instance.instantiate()
@@ -24,7 +24,7 @@ func _ready():
 	add_child(cheat_listener)
 	add_child(player)
 	add_child(stage_manager)
-	print_tree_pretty()
+	#print_tree_pretty()
 
 
 

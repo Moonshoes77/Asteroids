@@ -1,50 +1,55 @@
+#TODO: refactor the spawn function to not be a hacked together constructor
+
 class_name Asteroid
 extends Node2D
 
 const step_size: float = 0.4
 const ASTEROID_SCENE: PackedScene = preload("res://scenes/asteroid.tscn")
-
+@onready var collider: CollisionPolygon2D = $Area2D/CollisionPolygon2D
+var outline: Line2D
 var r: int
 var new_points: PackedVector2Array = PackedVector2Array();
 var angle: float = 0.0
 var velocity: Vector2 = Vector2.ZERO
-var is_breakable: bool = true
 var breaks: int = 0
+enum Size {LARGE, MEDIUM, SMALL}
+var size : Size 
 
-func _ready() -> void:	
-	pass
-
-
-func _process(delta: float) -> void:
-	position += velocity * delta
-	screen_wrap()
-	if Input.is_action_just_pressed("Free"):
-		queue_free()
+signal bullet_hit(asteroid: Asteroid)
 
 
-static func spawn(pos: Vector2, scale_factor: float = 1) -> Asteroid:
-	var this = ASTEROID_SCENE.instantiate()
-	var outline: Line2D = this.get_node("Area2D/Outline")
-	var collider: CollisionPolygon2D = this.get_node("Area2D/CollisionPolygon2D")
-	this.r = randi_range(45 * scale_factor, 85 * scale_factor)
-	this.velocity.x = randi_range(-100, 100)
-	this.velocity.y = randi_range(-100, 100)
-	this.position = pos
-	this.new_points = PackedVector2Array()
-	outline.width = 3.0
+#Basically a class constructor. 
+static func spawn(pos: Vector2, instance_size: Size) -> Asteroid:
+	var new_asteroid = ASTEROID_SCENE.instantiate()
+	new_asteroid.outline = new_asteroid.get_node("Area2D/Outline")
+	new_asteroid.collider = new_asteroid.get_node("Area2D/CollisionPolygon2D")
+	new_asteroid.velocity.x = randi_range(-100, 100)
+	new_asteroid.velocity.y = randi_range(-100, 100)
+	new_asteroid.size = instance_size
+	new_asteroid.position = pos
+	new_asteroid.new_points = PackedVector2Array()
+	new_asteroid.outline.width = 3.0
 	
-	this.angle = 0.0
-	while (this.angle < TAU):
-		var x: float = cos(this.angle) * this.r + randf_range(0.0, this.r * 0.4)
-		var y: float = sin(this.angle) * this.r + randf_range(0.0, this.r * 0.4)
+	match instance_size:
+		Size.LARGE:
+			new_asteroid.r = randi_range(45, 85)
+		Size.MEDIUM:
+			new_asteroid.r = randi_range(35, 65)
+		Size.SMALL:
+			new_asteroid.r = randi_range(20, 40)
+	
+	new_asteroid.angle = 0.0
+	while (new_asteroid.angle < TAU):
+		var x: float = cos(new_asteroid.angle) * new_asteroid.r + randf_range(0.0, new_asteroid.r * 0.4)
+		var y: float = sin(new_asteroid.angle) * new_asteroid.r + randf_range(0.0, new_asteroid.r * 0.4)
 		var point = Vector2(x, y)
-		this.angle += this.step_size
-		this.new_points.append(point)
+		new_asteroid.angle += new_asteroid.step_size
+		new_asteroid.new_points.append(point)
 		
-	this.new_points.append(this.new_points[0])
-	outline.set_points(this.new_points)
-	collider.set_polygon(this.new_points)
-	return this
+	new_asteroid.new_points.append(new_asteroid.new_points[0])
+	new_asteroid.outline.set_points(new_asteroid.new_points)
+	new_asteroid.collider.set_polygon(new_asteroid.new_points)
+	return new_asteroid
 
 
 func screen_wrap() -> void:
@@ -56,4 +61,24 @@ func screen_wrap() -> void:
 			position.y = -20
 		if position.y < -20:
 			position.y = Main.screen_size.y + 20
-	
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if (body is Bullet):
+		body.queue_free()
+		bullet_hit.emit(self)
+		queue_free()
+	elif (body is Player):
+		body.die()
+		
+func _ready() -> void:	
+	pass
+
+
+func _process(delta: float) -> void:
+	position += velocity * delta
+	screen_wrap()
+	if Input.is_action_just_pressed("Free"):
+		queue_free()
+	if Input.is_action_just_pressed("Info"):
+		print("size: ", size)

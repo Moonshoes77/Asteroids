@@ -11,7 +11,7 @@ var heading: float = get_rotation() - PI/2
 var Bullet_Instance = preload("res://scenes/bullet.tscn")
 @onready var Debugger = get_node("../Debug_Info")
 
-
+signal player_death
 
 func thrust(strength: float = 0.5):	
 	if !$thrusterSFX.is_playing():
@@ -102,6 +102,12 @@ func print_player_info():
 	#print(Debugger.text)
 	pass
 
+func die():
+	print("You dead")
+	player_death.emit()
+	queue_free()
+	pass
+	
 func _process(_delta):
 	if Input.is_action_just_pressed("shoot"):
 		shoot()

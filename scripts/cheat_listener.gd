@@ -6,6 +6,7 @@ extends Node
 
 var input = Array(["", "", "", "", "", "", ""], TYPE_STRING,"",null)
 
+
 func _ready() -> void:
 	var main = get_parent()
 	main.input_stored.connect(_on_main_input_stored)
@@ -16,7 +17,6 @@ func _on_main_input_stored(_input: String) -> void:
 	input.pop_front()
 	input.append(_input)
 	check_input()
-	
 
 
 func check_input() -> void:
