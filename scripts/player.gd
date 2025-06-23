@@ -91,21 +91,11 @@ func _ready():
 	position.y = Main.screen_size.y / 2.0
 	$ship/flame.visible = false
 
-
-func print_player_info():
-	#Debugger.text = "accel: " + str(accel) + "/n velocity: " + str(velocity)
-	#print("accel: ", accel)
-	#print("velocity: ", velocity)
-	#print("rotation: ", rotation)
-	#print("Gun rotation: ", $gun.rotation)
-	#print(Debugger.text)
-	pass
-
 func die():
-	#print("You dead")
-	#player_death.emit()
-	#queue_free()
-	pass
+	print("You dead")
+	player_death.emit()
+	queue_free()
+	
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("shoot"):
@@ -115,4 +105,3 @@ func _process(_delta):
 func _physics_process(_delta: float) -> void:	
 	screen_wrap()
 	move_and_slide()
-	print_player_info()
