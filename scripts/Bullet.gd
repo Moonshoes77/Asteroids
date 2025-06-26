@@ -32,8 +32,8 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(_delta):
+func _process(_delta):
 	velocity = Vector2(speed, 0).rotated(dir)
 	screen_wrap()
-	move_and_slide()
 	check_life()
+	move_and_slide()

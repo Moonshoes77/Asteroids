@@ -21,8 +21,8 @@ func add_roids(num: int, size: Asteroid.Size = Asteroid.Size.LARGE, pos = 0):
 	#default case, used to add a stage's initial asteroids
 	if (pos is int):
 		for i in range(num):
-			var posX = randi_range(0, DisplayServer.window_get_size().x)
-			var posY = randi_range(0, DisplayServer.window_get_size().y)
+			var posX = randi_range(0, Main.screen_size.x)
+			var posY = randi_range(0, Main.screen_size.y)
 			var new_roid = Asteroid.spawn(Vector2(posX, posY), size)
 			get_parent().add_child(new_roid)
 			new_roid.bullet_hit.connect(_on_bullet_hit)

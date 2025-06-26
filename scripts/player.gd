@@ -1,10 +1,12 @@
+#TODO: revisit deceleration code.
+#TODO: Fix bug that occasionally causes bullets to die early
+
 class_name Player
 extends CharacterBody2D
 
 const MAX_ACCEL: int = 10
 const MAX_SPEED: int = 300
-const BASE_DECEL_RATE: float = 0.015
-const MAX_DECEL_RATE: float = 0.1
+const DECEL_RATE: float = 0.015
 var counter: int = 0;
 var accel: float = 3.0
 var heading: float = get_rotation() - PI/2 
@@ -50,11 +52,11 @@ func shoot():
 
 func decelerate():
 	if (abs(velocity.x) > 10):
-		velocity.x = move_toward(velocity.x, 0.0, abs(velocity.x * BASE_DECEL_RATE))
+		velocity.x = move_toward(velocity.x, 0.0, abs(velocity.x *DECEL_RATE))
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, 0.1)
 	if   (abs(velocity.y) > 10):
-		velocity.y = move_toward(velocity.y, 0.0, abs(velocity.y * BASE_DECEL_RATE))
+		velocity.y = move_toward(velocity.y, 0.0, abs(velocity.y * DECEL_RATE))
 	else:
 		velocity.y = move_toward(velocity.y, 0.0, 0.1)
 
