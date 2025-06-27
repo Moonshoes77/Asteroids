@@ -4,7 +4,7 @@ extends Node
 
 
 func _ready() -> void:
-	add_roids(5)
+	add_roids(7)
 
 
 func add_roids(num: int, size: Asteroid.Size = Asteroid.Size.LARGE, pos = 0):
