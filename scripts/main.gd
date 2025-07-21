@@ -5,7 +5,8 @@ signal input_stored
 var Player_Manager_Instance = preload("res://scenes/player_manager.tscn")
 var Stage_Manager_Instance = preload("res://scenes/stage_manager.tscn")
 var Cheat_Listener = preload("res://scenes/cheat_listener.tscn")
-static var screen_size = DisplayServer.window_get_size()
+static var screen_size: Vector2i = DisplayServer.window_get_size()
+
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey && !event.is_pressed():
@@ -24,7 +25,7 @@ func _ready() -> void:
 	add_child(cheat_listener)
 	add_child(player)
 	add_child(stage_manager)
-	print_tree_pretty()
+	#print_tree_pretty()
 
 
 

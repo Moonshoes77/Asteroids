@@ -5,37 +5,49 @@
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_l6cm7")
+metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="ColorRect" parent="."]
 z_index = -5
 z_as_relative = false
-layout_mode = 0
-offset_right = 802.0
-offset_bottom = 599.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.20375
+anchor_bottom = 0.395
+offset_right = 640.0
+offset_bottom = 360.0
 color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Button_Container" type="MarginContainer" parent="."]
 z_index = -1
 z_as_relative = false
-layout_mode = 0
-offset_left = 35.0
-offset_top = 229.0
-offset_right = 177.0
-offset_bottom = 362.0
+layout_mode = 1
+offset_left = 21.1026
+offset_top = 125.667
+offset_right = 163.103
+offset_bottom = 229.667
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_bottom = 20
+metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Button_Container"]
 z_index = -1
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Play" type="Button" parent="Button_Container/VBoxContainer"]
 z_index = 1
 z_as_relative = false
+texture_filter = 1
 layout_mode = 2
 theme = ExtResource("2_ekxnf")
 text = "Play"
@@ -43,6 +55,7 @@ text = "Play"
 [node name="Exit" type="Button" parent="Button_Container/VBoxContainer"]
 z_index = 1
 z_as_relative = false
+texture_filter = 1
 layout_mode = 2
 theme = ExtResource("2_ekxnf")
 text = "Exit

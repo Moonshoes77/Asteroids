@@ -4,8 +4,12 @@
 class_name Asteroid
 extends Node2D
 
+
+signal bullet_hit(asteroid: Asteroid)
+
 const step_size: float = 0.4
 const ASTEROID_SCENE: PackedScene = preload("res://scenes/asteroid.tscn")
+enum Size {LARGE, MEDIUM, SMALL}
 @onready var collider: CollisionPolygon2D = $Area2D/CollisionPolygon2D
 var outline: Line2D
 var r: int
@@ -13,10 +17,8 @@ var new_points: PackedVector2Array = PackedVector2Array();
 var angle: float = 0.0
 var velocity: Vector2 = Vector2.ZERO
 var breaks: int = 0
-enum Size {LARGE, MEDIUM, SMALL}
 var size : Size 
 
-signal bullet_hit(asteroid: Asteroid)
 
 
 #Basically a class constructor. 
@@ -66,8 +68,9 @@ func screen_wrap() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if (body is Bullet):
-		body.queue_free()
 		bullet_hit.emit(self)
+		body.queue_free()
+		remove_from_group("asteroids")
 		queue_free()
 	elif (body is Player):
 		body.die()
@@ -82,5 +85,3 @@ func _process(delta: float) -> void:
 	screen_wrap()
 	if Input.is_action_just_pressed("Free"):
 		queue_free()
-	if Input.is_action_just_pressed("Info"):
-		print("size: ", size)

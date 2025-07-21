@@ -1,7 +1,7 @@
 class_name Stage_Manager
 extends Node
 
-var stage: int
+var stage: int = 1
 var current_score: int = 0
 enum Difficulty {EASY, NORMAL, HARD} 
 var difficulty: = Difficulty.NORMAL
@@ -9,12 +9,20 @@ var difficulty: = Difficulty.NORMAL
 
 func _ready() -> void:
 	print("stage_manager loaded")	
-	add_roids(4, Asteroid.Size.LARGE)
+	init_stage(stage)
 
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Free"):
-		add_roids(4, Asteroid.Size.LARGE)	
+		stage = 1
+		init_stage(stage)
+	check_asteroid_count()
+	
+
+func init_stage(stage_num: int):
+	add_roids(stage_num + 2, Asteroid.Size.LARGE)
+	print("Stage: ", stage)
+
 
  
 func add_roids(num: int, size: Asteroid.Size = Asteroid.Size.LARGE, pos = 0):
@@ -25,15 +33,20 @@ func add_roids(num: int, size: Asteroid.Size = Asteroid.Size.LARGE, pos = 0):
 			var posY = randi_range(0, Main.screen_size.y)
 			var new_roid = Asteroid.spawn(Vector2(posX, posY), size)
 			get_parent().add_child(new_roid)
+			new_roid.add_to_group("asteroids")
 			new_roid.bullet_hit.connect(_on_bullet_hit)
+
 	#used when asteroids split on hits
 	elif (pos is Vector2):
 		for i in range(num):
 			var posX = pos.x
 			var posY = pos.y
 			var new_roid = Asteroid.spawn(Vector2(posX, posY), size)
-			get_parent().add_child.call_deferred(new_roid)
+			add_child.call_deferred(new_roid)
 			new_roid.bullet_hit.connect(_on_bullet_hit)
+			new_roid.add_to_group("asteroids")
+
+			
 
 func _on_bullet_hit(asteroid: Asteroid):
 	var pos = asteroid.position
@@ -51,4 +64,11 @@ func _on_bullet_hit(asteroid: Asteroid):
 
 func change_score(score: int):
 	current_score += score
-	print(current_score)
+
+func check_asteroid_count():
+	if Engine.get_physics_frames() % 10 == 0:
+		if get_tree().get_node_count_in_group("asteroids") == 0:
+			print("Stage %s complete" %[stage])
+			print("Score: ", current_score)
+			stage += 1
+			init_stage(stage)
