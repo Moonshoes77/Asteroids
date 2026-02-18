@@ -14,6 +14,24 @@ var Bullet_Instance = preload("res://scenes/bullet.tscn")
 
 signal player_death
 
+
+func _ready():
+	position.x = Main.screen_size.x / 2.0
+	position.y = Main.screen_size.y / 2.0
+	$ship/flame.visible = false
+
+
+func _process(_delta):
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
+	update()
+
+
+func _physics_process(_delta: float) -> void:	
+	screen_wrap()
+	move_and_slide()
+
+
 func thrust(strength: float = 0.5):	
 	if !$thrusterSFX.is_playing():
 		$thrusterSFX.play()
@@ -88,22 +106,7 @@ func update():
 		counter = 0
 
 
-func _ready():
-	position.x = Main.screen_size.x / 2.0
-	position.y = Main.screen_size.y / 2.0
-	$ship/flame.visible = false
-
 func die():
 	print("You dead")
 	player_death.emit()
 	queue_free()
-	
-	
-func _process(_delta):
-	if Input.is_action_just_pressed("shoot"):
-		shoot()
-	update()
-
-func _physics_process(_delta: float) -> void:	
-	screen_wrap()
-	move_and_slide()

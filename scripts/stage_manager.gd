@@ -17,12 +17,11 @@ func _process(_delta: float) -> void:
 		stage = 1
 		init_stage(stage)
 	check_asteroid_count()
-	
+
 
 func init_stage(stage_num: int):
 	add_roids(stage_num + 2, Asteroid.Size.LARGE)
 	print("Stage: ", stage)
-
 
  
 func add_roids(num: int, size: Asteroid.Size = Asteroid.Size.LARGE, pos = 0):
@@ -46,7 +45,6 @@ func add_roids(num: int, size: Asteroid.Size = Asteroid.Size.LARGE, pos = 0):
 			new_roid.bullet_hit.connect(_on_bullet_hit)
 			new_roid.add_to_group("asteroids")
 
-			
 
 func _on_bullet_hit(asteroid: Asteroid):
 	var pos = asteroid.position
@@ -54,15 +52,15 @@ func _on_bullet_hit(asteroid: Asteroid):
 	match size:
 		0:
 			add_roids(3, size + 1, pos)
-			change_score(10)
+			update_score(10)
 		1:
 			add_roids(2, size + 1, pos)
-			change_score(20)
+			update_score(20)
 		2:
-			change_score(50)
+			update_score(50)
 			pass
 
-func change_score(score: int):
+func update_score(score: int):
 	current_score += score
 
 func check_asteroid_count():

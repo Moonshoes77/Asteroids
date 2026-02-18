@@ -28,7 +28,7 @@ func check_life():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	global_position = pos
-	global_rotation = rot - PI / 2
+	global_rotation = rot
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
